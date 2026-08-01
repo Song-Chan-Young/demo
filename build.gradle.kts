@@ -25,7 +25,7 @@ dependencies {
 
     // 2. 데이터베이스 (JPA + H2)
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.postgresql:postgresql")
 
     // 3. ERP 경력용 (Batch)
     implementation("org.springframework.boot:spring-boot-starter-batch")
