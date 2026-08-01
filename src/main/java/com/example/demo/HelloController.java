@@ -37,7 +37,7 @@ public class HelloController {
     }
 
     // --- UI 전용 (HTML을 리턴) ---
-    @GetMapping("/main")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("users", userRepository.findAll());
         return "index"; // templates/index.html 파일을 찾아서 보여줌
@@ -66,10 +66,10 @@ public class HelloController {
         user.setName(name);
         userRepository.save(user);
 
-        // 자바스크립트를 리턴해서 알림창 띄우고 다시 /ui로 보냄
+        // 자바스크립트를 리턴해서 알림창 띄우고 다시 /로 보냄
         return "<script>" +
                 "alert('" + name + "님이 추가되었습니다!');" +
-                "location.href='/main';" +
+                "location.href='/';" +
                 "</script>";
     }
 
@@ -81,10 +81,10 @@ public class HelloController {
             userRepository.deleteById(id);
             return "<script>" +
                     "alert('ID " + id + "번 유저가 삭제되었습니다.');" +
-                    "location.href='/main';" +
+                    "location.href='/';" +
                     "</script>";
         }
-        return "<script>alert('대상 없음'); location.href='/main';</script>";
+        return "<script>alert('대상 없음'); location.href='/';</script>";
     }
 
     // 유저 수정 (알림창 띄우기 버전)
@@ -94,7 +94,7 @@ public class HelloController {
         return userRepository.findById(id).map(user -> {
             user.setName(name);
             userRepository.save(user);
-            return "<script>alert('수정 완료!'); location.href='/main';</script>";
-        }).orElse("<script>alert('실패'); location.href='/main';</script>");
+            return "<script>alert('수정 완료!'); location.href='/';</script>";
+        }).orElse("<script>alert('실패'); location.href='/';</script>");
     }
 }
