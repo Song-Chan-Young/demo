@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>유저 관리 시스템</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 60%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background: #f4f4f4; }
+        .btn { padding: 5px 12px; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; }
+        .btn-edit { background-color: #ffc107; }
+        .btn-delete { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+<h2>🚀 유저 관리 UI (Main)</h2>
+
+<form action="/add" method="get">
+    <input type="text" name="name" placeholder="이름 입력" required />
+    <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 6px 12px; cursor: pointer;">추가</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.name}">이름</td>
+        <td>
+            <button class="btn btn-edit"
+                    th:onclick="let n = prompt('새 이름', [[${user.name}]]); if(n) location.href='/update?id=' + [[${user.id}]] + '&name=' + n">
+                수정
+            </button>
+
+            <button class="btn btn-delete"
+                    th:onclick="if(confirm('정말 삭제할까요?')) location.href='/delete?id=' + [[${user.id}]]">
+                삭제
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
